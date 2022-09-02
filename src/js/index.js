@@ -17,4 +17,20 @@
 // - [ ] 메뉴 삭제시 브라우저에서 제공하는 `confirm` 인터페이스를 활용한다.
 // - [ ] 총 메뉴 갯수를 count하여 상단에 보여준다.
 
-document.querySelector('#espresso-menu-name').addEventListener('');
+function App() {
+  // form 태그가 자동으로 전송되는걸 막아준다.
+  document
+    .querySelector('#espresso-menu-form')
+    .addEventListener('submit', (e) => {
+      e.preventDefault();
+    });
+
+  document
+    .querySelector('#espresso-menu-name')
+    .addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        console.log(document.querySelector('#espresso-menu-name').value);
+      }
+    });
+}
+App();
