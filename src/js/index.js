@@ -47,12 +47,12 @@ function App() {
           </button>
           </li>`;
       };
-      $('espresso-menu-list').insertAdjacentHTML(
-        'afterbegin',
+      $('#espresso-menu-list').insertAdjacentHTML(
+        'beforeend',
         menuItemTemplate(espressoMenuName)
       );
 
-      console.log(menuItemTemplate(espressoMenuName));
+      // console.log(menuItemTemplate(espressoMenuName));
     }
   });
 }
