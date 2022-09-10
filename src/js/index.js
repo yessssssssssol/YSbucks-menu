@@ -51,7 +51,9 @@ function App() {
         'beforeend',
         menuItemTemplate(espressoMenuName)
       );
-
+      // const 변수 = li 갯수를 카운팅
+      const menuCount = $('#espresso-menu-list').querySelectorAll('li').length;
+      $('.menu-count').innerText = `총 ${menuCount} 개`;
       // console.log(menuItemTemplate(espressoMenuName));
     }
   });
