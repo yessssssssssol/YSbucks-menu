@@ -13,17 +13,22 @@
 // - [x] 메뉴 수정시 브라우저에서 제공하는 `prompt` 인터페이스를 활용한다.
 
 // TODO 메뉴 삭제
-// - [ ] 메뉴 삭제 버튼클릭 이벤트로 메뉴 삭제할 수 있다.
-// - [ ] 메뉴 삭제시 브라우저에서 제공하는 `confirm` 인터페이스를 활용한다.
-// - [ ] 총 메뉴 갯수를 count하여 상단에 보여준다.
+// - [x] 메뉴 삭제 버튼클릭 이벤트로 메뉴 삭제할 수 있다.
+// - [x] 메뉴 삭제시 브라우저에서 제공하는 `confirm` 인터페이스를 활용한다.
+// - [x] 총 메뉴 갯수를 count하여 상단에 보여준다.
 
 const $ = (selector) => document.querySelector(selector);
 
 function App() {
-  // 수정 버튼 완성(이벤트위임을 활용하여 구현)
+  // 메뉴 카운트 재사용 위해 함수로 변경
+  const UpdateMenuCount = () => {
+    const menuCount = $('#espresso-menu-list').querySelectorAll('li').length;
+    $('.menu-count').innerText = `총 ${menuCount} 개`;
+  };
+
   $('#espresso-menu-list').addEventListener('click', (e) => {
+    // 수정 버튼 완성(이벤트위임을 활용하여 구현)
     if (e.target.classList.contains('menu-edit-button')) {
-      console.log(e.target);
       // 미리 적어둔 메뉴 가져오기
       const $menuName = e.target.closest('li').querySelector('.menu-name');
       const menuName = $menuName.innerText;
@@ -31,6 +36,16 @@ function App() {
       // 수정 메뉴 적용하기
       const updatedMenuName = prompt('메뉴명을 수정하세요', menuName);
       $menuName.innerText = updatedMenuName;
+    }
+
+    // 삭제 버튼 완성(이벤트위임을 활용)
+    if (e.target.classList.contains('menu-remove-button')) {
+      if (confirm('삭제하시겠습니까?')) {
+        e.target.closest('li').remove();
+        UpdateMenuCount();
+      } else {
+        return;
+      }
     }
   });
 
@@ -83,8 +98,7 @@ function App() {
     addMenuName();
 
     // const 변수 = li 갯수를 카운팅
-    const menuCount = $('#espresso-menu-list').querySelectorAll('li').length;
-    $('.menu-count').innerText = `총 ${menuCount} 개`;
+    UpdateMenuCount();
     $('#espresso-menu-name').value = '';
     // console.log(menuItemTemplate(espressoMenuName));
   });
