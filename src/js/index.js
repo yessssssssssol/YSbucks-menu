@@ -9,8 +9,8 @@
 // - [x] 사용자 입력값이 빈 값이라면 추가되지 않는다.
 
 // TODO 메뉴 수정
-// - [ ] 메뉴의 수정 버튼클릭 이벤트를 받고 메뉴 이름을 눌러 수정할 수 있다.
-// - [ ] 메뉴 수정시 브라우저에서 제공하는 `prompt` 인터페이스를 활용한다.
+// - [x] 메뉴의 수정 버튼클릭 이벤트를 받고 메뉴 이름을 눌러 수정할 수 있다.
+// - [x] 메뉴 수정시 브라우저에서 제공하는 `prompt` 인터페이스를 활용한다.
 
 // TODO 메뉴 삭제
 // - [ ] 메뉴 삭제 버튼클릭 이벤트로 메뉴 삭제할 수 있다.
@@ -20,6 +20,20 @@
 const $ = (selector) => document.querySelector(selector);
 
 function App() {
+  // 수정 버튼 완성(이벤트위임을 활용하여 구현)
+  $('#espresso-menu-list').addEventListener('click', (e) => {
+    if (e.target.classList.contains('menu-edit-button')) {
+      console.log(e.target);
+      // 미리 적어둔 메뉴 가져오기
+      const $menuName = e.target.closest('li').querySelector('.menu-name');
+      const menuName = $menuName.innerText;
+
+      // 수정 메뉴 적용하기
+      const updatedMenuName = prompt('메뉴명을 수정하세요', menuName);
+      $menuName.innerText = updatedMenuName;
+    }
+  });
+
   // form 태그가 자동으로 전송되는걸 막아준다.
   $('#espresso-menu-form').addEventListener('submit', (e) => {
     e.preventDefault();
